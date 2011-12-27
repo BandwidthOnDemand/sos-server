@@ -1,4 +1,4 @@
-package nl.surfnet.osserver.web
+package nl.surfnet.sos.web
 
 import org.scalatra.ScalatraServlet
 import scala.xml.Xhtml

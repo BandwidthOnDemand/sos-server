@@ -1,6 +1,6 @@
 organization := "nl.surfnet"
 
-name := "opensocial-server"
+name := "sos-server"
 
 version := "0.1.0-SNAPSHOT"
 
