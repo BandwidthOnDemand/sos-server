@@ -7,7 +7,9 @@ import net.liftweb.json._
 class OpenSocialServerController extends ScalatraServlet {
 
   get("/") {
-    Xhtml.toXhtml(<ul><li><a href="/rest/groups/@me"></a></li></ul>)
+    contentType = "text/html"
+
+    Xhtml.toXhtml(<ul><li><a href="/rest/groups/@me">/rest/groups/@me</a></li></ul>)
   }
 
   get("/rest/groups/@me") ({
@@ -17,6 +19,8 @@ class OpenSocialServerController extends ScalatraServlet {
 
     val groups = List(
         Group("bandwidth-on-demand", "test group"),
+        Group("institution-users3", "users"),
+        Group("institution-users2", "users"),
         Group("noc-engineer", "noc engineers"))
 
     compact(render(

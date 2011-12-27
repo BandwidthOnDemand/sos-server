@@ -7,7 +7,7 @@
 
     <servlet>
         <servlet-name>OpenSocialServerController</servlet-name>
-        <servlet-class>nl.surfnet.osserver.web.OpenSocialServerController</servlet-class>
+        <servlet-class>nl.surfnet.sos.web.OpenSocialServerController</servlet-class>
     </servlet>
 
     <servlet-mapping>
