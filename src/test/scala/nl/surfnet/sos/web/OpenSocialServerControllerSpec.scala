@@ -29,7 +29,7 @@ class OpenSocialServerControllerSpec extends ScalatraFunSuite {
     get("/rest/groups/@me?xoauth_requestor_id=urn:collab:person:surfguest.nl:alanvdam") {
       status should equal (200)
 
-      val jsonResult = parse(body).extract[JsonResult]
+      val jsonResult = parseResult(body)
 
       jsonResult.totalResults should be > 0
       jsonResult.entry.size should be (jsonResult.totalResults)
@@ -40,12 +40,14 @@ class OpenSocialServerControllerSpec extends ScalatraFunSuite {
     get("/rest/groups/urn:collab:person:surfguest.nl:alanvdam") {
       status should equal (200)
 
-      val jsonResult = parse(body).extract[JsonResult]
+      val jsonResult = parseResult(body)
 
       jsonResult.totalResults should be > 0
       jsonResult.entry.size should be (jsonResult.totalResults)
     }
   }
+
+  private def parseResult(jsonString: String): JsonResult = parse(jsonString).extract[JsonResult]
 
   case class JsonResult(startIndex: Int, totalResults: Int, entry: List[JValue])
 }
