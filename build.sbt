@@ -25,3 +25,13 @@ port in container.Configuration := 8081
 }
 
 resolvers += "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
+
+publish-maven-style := true
+
+publishTo <<= (version) { version: String =>
+  val nexus = "http://atlas.dlp.surfnet.nl/nexus/content/repositories/"
+  if (version.trim.endsWith("SNAPSHOT"))
+    Some("surfnet-snapshots" at nexus + "snapshots")
+  else
+    Some("surfnet-releases" at nexus + "releases")
+}
