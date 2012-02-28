@@ -21,11 +21,15 @@ class OpenSocialServerController extends ScalatraServlet with JsonSupport {
     , Group("users-klimaat", "Klimaat onderzoekers")
     , Group("users-klimaat2", "Klimaat onderzoekers 2")
     , Group("bandwidth-on-demand", "BoD group")
-    , Group("institution-users", "Users")
-    , Group("institution-users2", "Users 2")
+//    , Group("institution-users", "Users")
+//    , Group("institution-users2", "Users 2")
     ),
-    "urn:collab:person:surfguest.nl:okkeharsta" -> List(
-      Group("bandwidth-on-demand", "test group")))
+    "urn:collab:person:surfguest.nl:selenium-user" -> List(
+      Group("noc-engineer", "NOC engineers")
+    , Group("selenium-ict-managers", "Selenium ICT managers")
+    , Group("selenium-users", "Selenium users")
+    )
+  )
 
   get("/") {
     contentType = "text/html"
