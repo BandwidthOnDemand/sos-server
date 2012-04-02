@@ -99,7 +99,7 @@
 			<configuration>
 			    <scanIntervalSeconds>0</scanIntervalSeconds>
 			    <webAppConfig>
-				<contextPath>/sos</contextPath>
+				<contextPath>/</contextPath>
 			    </webAppConfig>
 			    <connectors>
 				<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
