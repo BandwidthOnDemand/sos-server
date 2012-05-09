@@ -13,16 +13,16 @@ class OpenSocialServerController extends ScalatraServlet with JsonSupport {
 
   private val groups = Map(
     "urn:collab:person:surfguest.nl:alanvdam" -> List(
-      Group("selenium-ict-managers", "Selenium ict managers")
-    , Group("noc-engineer", "NOC engineers")
-    , Group("ict-uu", "UU")
-    , Group("ict-sara", "SARA")
-    , Group("ict-managers", "ICT Managers X")
-    , Group("users-klimaat", "Klimaat onderzoekers")
-    , Group("users-klimaat2", "Klimaat onderzoekers 2")
-    , Group("bandwidth-on-demand", "BoD group")
-//    , Group("institution-users", "Users")
-//    , Group("institution-users2", "Users 2")
+       Group("selenium-ict-managers", "Selenium ict managers")
+     , Group("noc-engineer", "NOC engineers")
+     , Group("ict-uu", "UU")
+     , Group("ict-sara", "SARA")
+     , Group("ict-managers", "ICT Managers X")
+     , Group("users-klimaat", "Klimaat onderzoekers")
+     , Group("users-klimaat2", "Klimaat onderzoekers 2")
+     , Group("bandwidth-on-demand", "BoD group")
+     , Group("institution-users", "Users")
+     , Group("institution-users2", "Users 2")
     ),
     "urn:collab:person:surfguest.nl:selenium-user" -> List(
       Group("noc-engineer", "NOC engineers")

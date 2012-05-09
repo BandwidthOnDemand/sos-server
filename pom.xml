@@ -98,7 +98,7 @@
 			<version>8.0.4.v20111024</version>
 			<configuration>
 			    <scanIntervalSeconds>5</scanIntervalSeconds>
-                <reload>automatic</reload>
+                            <reload>manual</reload>
 			    <webAppConfig>
 				    <contextPath>/</contextPath>
 			    </webAppConfig>
