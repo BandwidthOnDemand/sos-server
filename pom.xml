@@ -12,6 +12,10 @@
         <name>nl.surfnet</name>
     </organization>
 
+    <scm>
+        <developerConnection>scm:git:gitolite@atlas.dlp.surfnet.nl:sos-server.git</developerConnection>
+    </scm>
+
     <dependencies>
         <dependency>
             <groupId>org.scala-lang</groupId>
@@ -113,6 +117,13 @@
 	</plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>surfnet-releases</id>
+            <name>surfnet-releases</name>
+            <url>http://atlas.dlp.surfnet.nl/nexus/content/repositories/releases</url>
+        </repository>
+    </distributionManagement>
     <repositories>
         <repository>
             <id>SonatypeOSSSnapshots</id>
