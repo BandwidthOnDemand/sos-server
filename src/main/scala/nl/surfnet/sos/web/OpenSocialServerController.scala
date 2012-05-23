@@ -13,8 +13,7 @@ class OpenSocialServerController extends ScalatraServlet with JsonSupport {
 
   private val groups = Map(
     "urn:collab:person:surfguest.nl:alanvdam" -> List(
-       Group("selenium-ict-managers", "Selenium ict managers")
-     , Group("noc-engineer", "NOC engineers")
+       Group("noc-engineer", "NOC engineers")
      , Group("ict-uu", "UU")
      , Group("ict-sara", "SARA")
      , Group("ict-managers", "ICT Managers X")
@@ -46,7 +45,7 @@ class OpenSocialServerController extends ScalatraServlet with JsonSupport {
 
     val userGroups = groups.getOrElse(user, Nil)
 
-    logger.info("Groups request for '%s' returning %d groups".format(user, userGroups.size))
+    logger.debug("Groups request for '%s' returning %d groups".format(user, userGroups.size))
 
     ("startIndex" -> 0) ~
       ("totalResults" -> userGroups.size) ~
