@@ -5,7 +5,7 @@
     <artifactId>sos-server</artifactId>
     <packaging>war</packaging>
     <description>sos-server</description>
-    <version>0.1.2-SNAPSHOT</version>
+    <version>0.1.2</version>
     <name>sos-server</name>
 
     <organization>
