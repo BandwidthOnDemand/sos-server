@@ -106,6 +106,7 @@
                     <webAppConfig>
                         <contextPath>/</contextPath>
                     </webAppConfig>
+                    <contextXml>${basedir}/src/test/resources/jetty-context.xml</contextXml>
                     <connectors>
                         <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
                             <port>8081</port>
