@@ -18,14 +18,14 @@ class OpenSocialServerController extends ScalatraServlet with JsonSupport {
      , Group("ict-sara", "SARA")
      , Group("ict-managers", "ICT Managers X")
      , Group("users-klimaat", "Klimaat onderzoekers")
-     , Group("users-klimaat2", "Klimaat onderzoekers 2")
+     , Group("users klimaat 2", "Klimaat onderzoekers 2", Some("users-klimaat2"))
      , Group("bandwidth-on-demand", "BoD group")
      , Group("institution-users", "Users")
      , Group("institution-users2", "Users 2")
     ),
     "urn:henk" -> List(
-        Group("institution-users3", "Users 3")
-      , Group("institution-users4", "Users 4")
+      Group("institution-users3", "Users 3")
+    , Group("institution-users4", "Users 4")
     ),
     "urn:collab:person:surfguest.nl:selenium-user" -> List(
       Group("noc-engineer", "NOC engineers")
@@ -41,7 +41,7 @@ class OpenSocialServerController extends ScalatraServlet with JsonSupport {
     Xhtml.toXhtml(<ul><li><a href="/rest/groups/@me">/rest/groups/@me</a></li></ul>)
   }
 
-  get("/rest/groups/:guid") {
+  get("/social/rest/groups/:guid") {
     import net.liftweb.json.JsonDSL._
 
     val user = params("guid") match {
@@ -56,7 +56,7 @@ class OpenSocialServerController extends ScalatraServlet with JsonSupport {
     ("startIndex" -> 0) ~
       ("totalResults" -> userGroups.size) ~
       ("entry" -> userGroups.map { group =>
-        (("id" -> ("groupId" -> group.groupId) ~ ("type" -> "groupId")) ~
+        (("id" -> group.groupId) ~
           ("title" -> group.title) ~
           ("description" -> group.description))
       })
@@ -64,6 +64,7 @@ class OpenSocialServerController extends ScalatraServlet with JsonSupport {
 
 }
 
-case class Group(title: String, description: String) {
-  def groupId: String = "urn:collab:group:test.surfteams.nl:nl:surfnet:diensten:" + title
+case class Group(title: String, description: String, id: Option[String] = None) {
+
+  def groupId: String = "urn:collab:group:test.surfteams.nl:nl:surfnet:diensten:" + id.getOrElse(title)
 }
