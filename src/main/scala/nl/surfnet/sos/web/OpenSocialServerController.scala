@@ -6,12 +6,14 @@ import scala.xml.Xhtml
 import net.liftweb.json._
 import org.scalatra.liftjson.JsonSupport
 import grizzled.slf4j.Logger
+import scala.concurrent.stm._
+import scala.util.parsing.json.JSON
 
 class OpenSocialServerController extends ScalatraServlet with JsonSupport {
 
   private val logger = Logger(classOf[OpenSocialServerController])
 
-  private val groups = Map(
+  private val groups = TMap(
     "urn:collab:person:surfguest.nl:alanvdam" -> List(
        Group("noc-engineer", "NOC engineers")
      , Group("ict-uu", "UU")
@@ -34,7 +36,7 @@ class OpenSocialServerController extends ScalatraServlet with JsonSupport {
     , Group("selenium-users", "Selenium users")
     , Group("selenium-users2", "Selenium users 2")
     )
-  )
+  ).single
 
   get("/") {
     contentType = "text/html"
@@ -60,6 +62,34 @@ class OpenSocialServerController extends ScalatraServlet with JsonSupport {
           ("title" -> group.title) ~
           ("description" -> group.description))
       })
+  }
+
+  // add a person
+  post("/persons") {
+    val person = JSON.parseFull(request.body).get.asInstanceOf[Map[String, String]]
+    groups.put(person("id"), Nil)
+  }
+
+  // add a group
+  post("/persons/:uid/groups") {
+    atomic { implicit txn =>
+      val group = JSON.parseFull(request.body).get.asInstanceOf[Map[String, String]]
+      val newGroups = Group(group("title"), group.getOrElse("discription", "")) :: groups(params("uid"))
+      groups.update(params("uid"), newGroups)
+    }
+  }
+
+  // delete a person
+  delete("/persons/:uid") {
+    atomic { implicit txn =>
+      groups.remove(params("uid"))
+    }
+  }
+
+  // delete a group
+  delete("/persons/:uid/groups/:guid") {
+    val newGroups = groups(params("uid")).filterNot(group => group.groupId == params("guid"))
+    groups.update(params("uid"), newGroups)
   }
 
 }
