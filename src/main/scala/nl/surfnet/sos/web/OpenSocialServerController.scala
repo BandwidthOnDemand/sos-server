@@ -38,7 +38,7 @@ class OpenSocialServerController extends ScalatraServlet with JsonSupport {
 
   get("/") {
     contentType = "text/html"
-    Xhtml.toXhtml(<ul><li><a href="/rest/groups/@me">/rest/groups/@me</a></li></ul>)
+    Xhtml.toXhtml(<ul><li><a href="/social/rest/groups/@me">/social/rest/groups/@me</a></li></ul>)
   }
 
   get("/social/rest/groups/:guid") {
