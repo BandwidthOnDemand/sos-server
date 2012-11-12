@@ -13,7 +13,7 @@
     </organization>
 
     <scm>
-        <developerConnection>scm:git:gitolite@atlas.dlp.surfnet.nl:sos-server.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:BandwidthOnDemand/sos-server.git</developerConnection>
     </scm>
 
     <properties>
