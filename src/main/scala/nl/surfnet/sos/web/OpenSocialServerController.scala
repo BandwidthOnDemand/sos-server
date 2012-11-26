@@ -4,12 +4,12 @@ package web
 import org.scalatra.ScalatraServlet
 import scala.xml.Xhtml
 import net.liftweb.json._
-import org.scalatra.liftjson.JsonSupport
+import org.scalatra.liftjson.LiftJsonSupport
 import grizzled.slf4j.Logger
 import scala.concurrent.stm._
 import scala.util.parsing.json.JSON
 
-class OpenSocialServerController extends ScalatraServlet with JsonSupport {
+class OpenSocialServerController extends ScalatraServlet with LiftJsonSupport {
 
   private val logger = Logger(classOf[OpenSocialServerController])
 

@@ -17,7 +17,7 @@
     </scm>
 
     <properties>
-        <scalatra.version>2.0.4</scalatra.version>
+        <scalatra.version>2.1.1</scalatra.version>
         <scala.version>2.9.2</scala.version>
     </properties>
 
@@ -29,17 +29,17 @@
         </dependency>
         <dependency>
             <groupId>org.scalatra</groupId>
-            <artifactId>scalatra_2.9.1</artifactId>
+            <artifactId>scalatra</artifactId>
             <version>${scalatra.version}</version>
         </dependency>
         <dependency>
             <groupId>org.scalatra</groupId>
-            <artifactId>scalatra-lift-json_2.9.1</artifactId>
+            <artifactId>scalatra-lift-json</artifactId>
             <version>${scalatra.version}</version>
         </dependency>
         <dependency>
             <groupId>org.scalatra</groupId>
-            <artifactId>scalatra-scalatest_2.9.1</artifactId>
+            <artifactId>scalatra-scalatest</artifactId>
             <version>${scalatra.version}</version>
             <scope>test</scope>
         </dependency>
@@ -66,8 +66,8 @@
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
