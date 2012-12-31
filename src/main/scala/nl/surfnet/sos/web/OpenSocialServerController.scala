@@ -25,6 +25,9 @@ class OpenSocialServerController extends ScalatraServlet with LiftJsonSupport {
      , Group("institution-users", "Users")
      , Group("institution-users2", "Users 2")
     ),
+    "urn:collab:person:surfnet.nl:hanst" -> List(
+      Group("noc-engineer", "NOC engineers")
+    ),
     "urn:henk" -> List(
       Group("institution-users3", "Users 3")
     , Group("institution-users4", "Users 4")
