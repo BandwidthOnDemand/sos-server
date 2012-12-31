@@ -126,9 +126,9 @@
 
     <distributionManagement>
         <repository>
-            <id>surfnet-releases</id>
-            <name>surfnet-releases</name>
-            <url>http://atlas.dlp.surfnet.nl/nexus/content/repositories/releases</url>
+            <id>surfnet-public-releases</id>
+            <name>surfnet-public-releases</name>
+            <url>http://atlas.dlp.surfnet.nl/nexus/content/repositories/public-releases</url>
         </repository>
     </distributionManagement>
     <repositories>
