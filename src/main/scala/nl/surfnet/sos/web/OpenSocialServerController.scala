@@ -14,7 +14,7 @@ class OpenSocialServerController extends ScalatraServlet with LiftJsonSupport {
   private val logger = Logger(classOf[OpenSocialServerController])
 
   private val groups = TMap(
-    "urn:collab:person:surfguest.nl:alanvdam" -> List(
+    "urn:collab:person:surfguest.nl:johnsmith" -> List(
        Group("noc-engineer", "NOC engineers")
      , Group("ict-uu", "UU")
      , Group("ict-sara", "SARA")
