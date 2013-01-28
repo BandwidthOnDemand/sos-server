@@ -24,6 +24,7 @@ class OpenSocialServerController extends ScalatraServlet with LiftJsonSupport {
      , Group("bandwidth-on-demand", "BoD group")
      , Group("institution-users", "Users")
      , Group("institution-users2", "Users 2")
+     , Group("bod-app-mananger", "Application Manager")
     ),
     "urn:collab:person:surfnet.nl:hanst" -> List(
       Group("noc-engineer", "NOC engineers")
