@@ -5,7 +5,7 @@
     <artifactId>sos-server</artifactId>
     <packaging>war</packaging>
     <description>sos-server</description>
-    <version>0.1.6-SNAPSHOT</version>
+    <version>0.1.6</version>
     <name>sos-server</name>
     <organization>
         <name>nl.surfnet</name>
@@ -19,7 +19,8 @@
 
     <scm>
         <developerConnection>scm:git:git@github.com:BandwidthOnDemand/sos-server.git</developerConnection>
-    </scm>
+      <tag>sos-server-0.1.6</tag>
+  </scm>
 
     <properties>
         <scalatra.version>2.1.1</scalatra.version>
