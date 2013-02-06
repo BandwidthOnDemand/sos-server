@@ -5,7 +5,7 @@
     <artifactId>sos-server</artifactId>
     <packaging>war</packaging>
     <description>sos-server</description>
-    <version>0.1.7-SNAPSHOT</version>
+    <version>0.1.7</version>
     <name>sos-server</name>
     <organization>
         <name>nl.surfnet</name>
@@ -19,7 +19,7 @@
 
     <scm>
         <developerConnection>scm:git:git@github.com:BandwidthOnDemand/sos-server.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>sos-server-0.1.7</tag>
   </scm>
 
     <properties>
