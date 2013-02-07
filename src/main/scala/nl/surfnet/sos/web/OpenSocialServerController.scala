@@ -39,7 +39,7 @@ class OpenSocialServerController extends ScalatraServlet with LiftJsonSupport {
     , Group("selenium-ict-managers2", "Selenium ICT managers 2")
     , Group("selenium-users", "Selenium users")
     , Group("selenium-users2", "Selenium users 2")
-    , Group("bod-app-mananger", "Application Manager")
+    , Group("bod-app-manager", "Application Manager")
     )
   ).single
 
