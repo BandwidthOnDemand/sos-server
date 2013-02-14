@@ -1,11 +1,17 @@
 # Simple Open Social Server
 This project contains a simple and incomplete implementation of the Open Social API. It can be used to mock or imitate a 'real' Open Social Server.
 
-It is written in Scala using [Scalatra][scalatra] and [Lift-json][lift-json].
+It is written in Scala using [Scalatra][scalatra].
 
 ## Running the server
 
-    maven jetty:run
+    mvn jetty:run
+
+Direct your browser to http://localhost:8081.
+
+## Continues compilation
+
+    mvn scala:cc
 
 Optional: Install the [Zinc server][zinc] for faster compilation `brew install zinc; zinc -start`.
 
@@ -17,5 +23,4 @@ Optional: Install the [Zinc server][zinc] for faster compilation `brew install z
     DELETE: /persons/[uid]/groups/[gid] // deletes a group with gid for person with uid
 
 [scalatra]: http://www.scalatra.org/
-[lift-json]: https://github.com/lift/lift/tree/master/framework/lift-base/lift-json/
 [zinc]: https://github.com/typesafehub/zinc
