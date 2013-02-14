@@ -1,0 +1,42 @@
+body {
+  font-family: 'Helvetica';
+}
+a {
+  color: darkSlateGray;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+a.btn {
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2px 2px rgba(0, 0, 0, 0.2);
+  color: white;
+  padding: 3px 7px;
+  text-decoration: none;
+  margin: 0 2px;
+}
+a.btn:hover {
+  text-decoration: none;
+}
+a.add {
+  border: solid 1px darkRed;
+  background-color: fireBrick;
+}
+a.add:hover {
+  background: darkRed;
+}
+a.remove {
+  border: solid 1px darkGreen;
+  background-color: forestGreen;
+}
+a.remove:hover {
+  background: darkGreen;
+}
+ul.buttons {
+  padding-left: 0;
+  list-style-type: none;
+}
+ul.buttons li {
+  line-height: 30px;
+}
