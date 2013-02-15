@@ -18,13 +18,15 @@
     </parent>
 
     <scm>
+        <connection>scm:git:git@github.com:BandwidthOnDemand/sos-server.git</connection>
         <developerConnection>scm:git:git@github.com:BandwidthOnDemand/sos-server.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+        <url>https://github.com/BandwidthOnDemand/sos-server</url>
+    </scm>
 
     <properties>
         <scalatra.version>2.2.0</scalatra.version>
-        <scala.version>2.9.2</scala.version>
+        <scala.version>2.10.0</scala.version>
+        <scala.shortversion>2.10</scala.shortversion>
     </properties>
 
     <dependencies>
@@ -35,22 +37,22 @@
         </dependency>
         <dependency>
             <groupId>org.scalatra</groupId>
-            <artifactId>scalatra</artifactId>
+            <artifactId>scalatra_${scala.shortversion}</artifactId>
             <version>${scalatra.version}</version>
         </dependency>
         <dependency>
             <groupId>org.scalatra</groupId>
-            <artifactId>scalatra-json</artifactId>
+            <artifactId>scalatra-json_${scala.shortversion}</artifactId>
             <version>${scalatra.version}</version>
         </dependency>
         <dependency>
             <groupId>org.json4s</groupId>
-            <artifactId>json4s-jackson_${scala.version}</artifactId>
+            <artifactId>json4s-jackson_${scala.shortversion}</artifactId>
             <version>3.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.scalatra</groupId>
-            <artifactId>scalatra-scalatest</artifactId>
+            <artifactId>scalatra-scalatest_${scala.shortversion}</artifactId>
             <version>${scalatra.version}</version>
             <scope>test</scope>
         </dependency>
@@ -62,7 +64,7 @@
         </dependency>
         <dependency>
             <groupId>org.scala-tools</groupId>
-            <artifactId>scala-stm_2.9.1</artifactId>
+            <artifactId>scala-stm_${scala.version}</artifactId>
             <version>0.6</version>
         </dependency>
         <dependency>
@@ -78,7 +80,7 @@
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.1.1</version>
                 <configuration>
                     <scalaVersion>${scala.version}</scalaVersion>
                 </configuration>
@@ -89,7 +91,7 @@
                             <goal>testCompile</goal>
                         </goals>
                         <configuration>
-                            <checkMultipleScalaVersions>false</checkMultipleScalaVersions>
+                            <checkMultipleScalaVersions>true</checkMultipleScalaVersions>
                             <jvmArgs>
                                 <arg>-XX:+TieredCompilation</arg> <!-- Much faster Scala compilation -->
                             </jvmArgs>
