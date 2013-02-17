@@ -1,7 +1,7 @@
 package nl.surfnet.sos.web
 
 import org.scalatra.ScalatraServlet
-import org.scalatra.ActionResult._
+import org.scalatra._
 import org.scalatra.json._
 import org.json4s.JsonDSL._
 import org.json4s._
@@ -40,6 +40,8 @@ class OpenSocialServerController extends ScalatraServlet with JacksonJsonSupport
       Group("Application Manager", "Application Manager", appManagerId)
     )
   ).single
+
+  protected implicit val jsonFormats: Formats = DefaultFormats
 
   get("/") {
     contentType = "text/html"
@@ -80,23 +82,21 @@ class OpenSocialServerController extends ScalatraServlet with JacksonJsonSupport
     <a href="#" data-roleid={ groupId } data-desc={name} class={ if(groups.map(g => g.id).contains(groupId)) "btn remove" else "btn add" }>{name}</a>
 
   get("/social/rest/groups/:uid") {
-    contentType = formats("json")
 
-    val user = params("uid")
-    val userGroups = users.getOrElse(user, Nil)
-
-    logger.debug("Groups request for '%s' returning %d groups".format(user, userGroups.size))
-
-    ("startIndex" -> 0) ~
-      ("totalResults" -> userGroups.size) ~
-      ("entry" -> userGroups.map { group =>
-        (("id" -> group.groupId) ~
+    users.get(params("uid")).map { userGroups =>
+      val json =
+        ("startIndex" -> 0) ~
+        ("totalResults" -> userGroups.size) ~
+        ("entry" -> userGroups.map { group =>
+          ("id" -> group.groupId) ~
           ("title" -> group.title) ~
-          ("description" -> group.description))
-      })
+          ("description" -> group.description)
+        })
+      Ok(json)
+    }.getOrElse(NotFound("User does not exist"))
   }
 
-  // add a person
+  // adds a person
   post("/persons") {
     atomic { implicit txn =>
       val JString(uid) = parsedBody \ "id"
@@ -104,33 +104,37 @@ class OpenSocialServerController extends ScalatraServlet with JacksonJsonSupport
     }
   }
 
-  // add a group
+  // adds a group
   post("/persons/:uid/groups") {
     atomic { implicit txn =>
-      val group = parsedBody.extract[Group]
-      val user = params("uid")
-
-      val newGroups = users(user) + group
-      users.update(user, newGroups)
-
-      ("message" -> "success")
+      parsedBody match {
+        case JNothing =>
+          BadRequest("Wrong json provided")
+        case json: JObject =>
+          val user = params("uid")
+          val newGroups = users(user) + json.extract[Group]
+          users.update(user, newGroups)
+          Ok("message" -> "success")
+        case _ =>
+          BadRequest("Wrong request")
+      }
     }
   }
 
-  // delete a person
+  // deletes a person
   delete("/persons/:uid") {
     atomic { implicit txn =>
       users.remove(params("uid"))
     }
   }
 
-  // delete a group
+  // deletes a group
   delete("/persons/:uid/groups/:gid") {
-    val newGroups = users(params("uid")).filterNot(g => g.groupId == params("gid"))
-    users.update(params("uid"), newGroups)
+    atomic { implicit txn =>
+      val newGroups = users(params("uid")).filterNot(g => g.groupId == params("gid"))
+      users.update(params("uid"), newGroups)
+    }
   }
-
-  protected implicit val jsonFormats: Formats = DefaultFormats
 }
 
 case class Group(title: String, description: String, id: String) {
