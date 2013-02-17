@@ -12,7 +12,7 @@ class OpenSocialServerControllerSpec extends ScalatraSuite with FunSuite {
 
   addServlet(classOf[OpenSocialServerController], "/*")
 
-  test("Get groups for an existing user") {
+  test("Get groups for an existing person") {
 
     get(s"/social/rest/groups/$johnSmithUrn") {
       status must equal (200)
@@ -25,13 +25,13 @@ class OpenSocialServerControllerSpec extends ScalatraSuite with FunSuite {
     }
   }
 
-  test("Get groups for non existing user") {
+  test("Get groups for non existing person") {
     get("/social/rest/groups/urn:collab:person:surfguest.nl:xxxxxx") {
       status must equal (404)
     }
   }
 
-  test("Add a group to an user") {
+  test("Add a group to a person") {
     get(s"/social/rest/groups/$johnSmithUrn") {
       body must not include ("test-group")
     }
@@ -53,7 +53,7 @@ class OpenSocialServerControllerSpec extends ScalatraSuite with FunSuite {
     }
   }
 
-  test("Delete group from an user") {
+  test("Delete group from a person") {
     get(s"/social/rest/groups/$johnSmithUrn") {
       body must include ("noc-engineer")
     }
@@ -62,6 +62,31 @@ class OpenSocialServerControllerSpec extends ScalatraSuite with FunSuite {
     }
     get(s"/social/rest/groups/$johnSmithUrn") {
       body must not include ("noc-engineer")
+    }
+  }
+
+  test("Adding a person") {
+    val newPersonUrn = "urn:collab:group:test.surfteams.nl:nl:surfnet:diensten:henkie"
+    post("/persons", s"""{"id": "$newPersonUrn"}""", jsonHeaders) {
+      status must equal (200)
+    }
+    get(s"/social/rest/groups/$newPersonUrn") {
+      status must equal (200)
+    }
+  }
+
+  test("Adding a person without a json body should fail") {
+    post("/persons", "") {
+      status must equal (400)
+    }
+  }
+
+  test("Delete a person") {
+    delete(s"/persons/$johnSmithUrn") {
+      status must equal (200)
+    }
+    get(s"/social/rest/groups/$johnSmithUrn") {
+      status must equal (404)
     }
   }
 

@@ -99,8 +99,15 @@ class OpenSocialServerController extends ScalatraServlet with JacksonJsonSupport
   // adds a person
   post("/persons") {
     atomic { implicit txn =>
-      val JString(uid) = parsedBody \ "id"
-      users.put(uid, Set())
+      parsedBody match {
+      case JNothing =>
+        BadRequest("Wrong json provided")
+      case json: JObject =>
+        val JString(uid) = json \ "id"
+        users.put(uid, Set.empty)
+      case _ =>
+        BadRequest("Wrong request")
+      }
     }
   }
 
