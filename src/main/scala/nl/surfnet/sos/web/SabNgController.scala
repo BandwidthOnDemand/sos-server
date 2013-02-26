@@ -5,19 +5,9 @@ import org.scalatra.ApiFormats._
 import scala.xml.XML
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
+import nl.surfnet.sos.SabNgStore
 
 class SabNgController extends ScalatraServlet with ApiFormats {
-
-  private val users = Map(
-    "urn:collab:person:surfguest.nl:johnsmith" ->
-      Map(
-        "SURFNET" -> Set("Superuser", "Instellingsbevoegde", "Infraverantwoordelijke"),
-        "RUG" -> Set("Infraverantwoordelijke"),
-        "SARA" -> Set("Superuser")
-      ),
-    "urn:collab:person:surfnet.nl:hanst" ->
-      Map("SURFNET" -> Set("Infraverantwoordelijke"))
-  )
 
   private val dateTimeFormatter = ISODateTimeFormat.dateTimeNoMillis()
 
@@ -29,7 +19,7 @@ class SabNgController extends ScalatraServlet with ApiFormats {
     val nameId = (xmlRequest \\ "NameID").text
     val requestId = (xmlRequest \\ "AttributeQuery" \ "@ID").text
 
-    val response = users.get(nameId) map { institutes =>
+    val response = SabNgStore.getUser(nameId) map { institutes =>
 
       <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
         <SOAP-ENV:Body>

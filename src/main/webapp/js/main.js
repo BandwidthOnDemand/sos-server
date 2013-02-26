@@ -12,7 +12,7 @@ $(function() {
         $.ajax({
             data: JSON.stringify({title: roleId, description: desc, id: roleId}),
             type: 'POST',
-            url: '/persons/'+userId+'/groups',
+            url: '/os/persons/'+userId+'/groups',
             contentType: "application/json; charset=utf-8",
             success: function() {
                 $(button).addClass("remove").removeClass("add");
@@ -32,7 +32,7 @@ $(function() {
 
         $.ajax({
             type: 'DELETE',
-            url: '/persons/'+userId+'/groups/'+roleId,
+            url: '/os/persons/'+userId+'/groups/'+roleId,
             success: function() {
                 $(button).addClass("add").removeClass("remove");
             },

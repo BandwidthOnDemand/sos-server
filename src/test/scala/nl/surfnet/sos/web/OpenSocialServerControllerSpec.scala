@@ -14,7 +14,7 @@ class OpenSocialServerControllerSpec extends ScalatraSuite with FunSuite {
 
   test("Get groups for an existing person") {
 
-    get(s"/social/rest/groups/$johnSmithUrn") {
+    get(s"/groups/$johnSmithUrn") {
       status must equal (200)
 
       val json = parse(body)
@@ -26,13 +26,13 @@ class OpenSocialServerControllerSpec extends ScalatraSuite with FunSuite {
   }
 
   test("Get groups for non existing person") {
-    get("/social/rest/groups/urn:collab:person:surfguest.nl:xxxxxx") {
+    get("/groups/urn:collab:person:surfguest.nl:xxxxxx") {
       status must equal (404)
     }
   }
 
   test("Add a group to a person") {
-    get(s"/social/rest/groups/$johnSmithUrn") {
+    get(s"/groups/$johnSmithUrn") {
       body must not include ("test-group")
     }
     post(
@@ -42,7 +42,7 @@ class OpenSocialServerControllerSpec extends ScalatraSuite with FunSuite {
 
       status must equal (200)
     }
-    get(s"/social/rest/groups/$johnSmithUrn") {
+    get(s"/groups/$johnSmithUrn") {
       body must include ("test-group")
     }
   }
@@ -54,13 +54,13 @@ class OpenSocialServerControllerSpec extends ScalatraSuite with FunSuite {
   }
 
   test("Delete group from a person") {
-    get(s"/social/rest/groups/$johnSmithUrn") {
+    get(s"/groups/$johnSmithUrn") {
       body must include ("noc-engineer")
     }
     delete(s"/persons/$johnSmithUrn/groups/$nocEngineerUrn") {
       status must equal (200)
     }
-    get(s"/social/rest/groups/$johnSmithUrn") {
+    get(s"/groups/$johnSmithUrn") {
       body must not include ("noc-engineer")
     }
   }
@@ -70,7 +70,7 @@ class OpenSocialServerControllerSpec extends ScalatraSuite with FunSuite {
     post("/persons", s"""{"id": "$newPersonUrn"}""", jsonHeaders) {
       status must equal (200)
     }
-    get(s"/social/rest/groups/$newPersonUrn") {
+    get(s"/groups/$newPersonUrn") {
       status must equal (200)
     }
   }
@@ -85,7 +85,7 @@ class OpenSocialServerControllerSpec extends ScalatraSuite with FunSuite {
     delete(s"/persons/$johnSmithUrn") {
       status must equal (200)
     }
-    get(s"/social/rest/groups/$johnSmithUrn") {
+    get(s"/groups/$johnSmithUrn") {
       status must equal (404)
     }
   }
