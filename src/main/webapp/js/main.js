@@ -32,7 +32,7 @@ $(function() {
 
         $.ajax({
             type: 'DELETE',
-            url: '/persons/'+userId+'/groups/urn:collab:group:test.surfteams.nl:nl:surfnet:diensten:'+roleId,
+            url: '/persons/'+userId+'/groups/'+roleId,
             success: function() {
                 $(button).addClass("add").removeClass("remove");
             },

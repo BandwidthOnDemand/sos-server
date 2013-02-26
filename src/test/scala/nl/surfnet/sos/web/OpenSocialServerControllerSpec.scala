@@ -90,7 +90,7 @@ class OpenSocialServerControllerSpec extends ScalatraSuite with FunSuite {
     }
   }
 
-  val nocEngineerUrn = "urn:collab:group:test.surfteams.nl:nl:surfnet:diensten:noc-engineer"
+  val nocEngineerUrn = "noc-engineer"
   val johnSmithUrn = "urn:collab:person:surfguest.nl:johnsmith"
   val jsonHeaders = Map("Accept" -> "application/json", "Content-Type" -> "application/json")
 }

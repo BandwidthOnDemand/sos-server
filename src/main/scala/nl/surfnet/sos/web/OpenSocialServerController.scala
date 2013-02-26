@@ -138,7 +138,7 @@ class OpenSocialServerController extends ScalatraServlet with JacksonJsonSupport
   // deletes a group
   delete("/persons/:uid/groups/:gid") {
     atomic { implicit txn =>
-      val newGroups = users(params("uid")).filterNot(g => g.groupId == params("gid"))
+      val newGroups = users(params("uid")).filterNot(g => g.id == params("gid"))
       users.update(params("uid"), newGroups)
     }
   }
