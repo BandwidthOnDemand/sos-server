@@ -2,6 +2,7 @@ package nl.surfnet.sos.web
 
 import org.scalatra.ScalatraServlet
 import nl.surfnet.sos.OpenSocialStore
+import nl.surfnet.sos.SabNgStore
 import nl.surfnet.sos.Group
 import scala.xml.Xhtml
 
@@ -20,11 +21,11 @@ class SosController extends ScalatraServlet {
         <body>
           <div id="messages">
           </div>
-          <h1>Users</h1>
+          <h1>OS Users</h1>
           <ul id="users">
           { for (user <- OpenSocialStore.users) yield
             <li data-nameid={ user._1 }>
-              <a href={"/social/rest/groups/" + user._1}>{user._1}</a>
+              <a href={"/os/groups/" + user._1}>{user._1}</a>
               <ul class="buttons">
                 <li>
                   { groupButton(user._2, OpenSocialStore.nocEngineerId, "NOC Engineer") ++
@@ -34,6 +35,18 @@ class SosController extends ScalatraServlet {
                       groupButton(user._2, group.id, group.description)
                     }
                 </li>
+              </ul>
+            </li>
+          }
+          </ul>
+          <h1>SabNG Users</h1>
+          <ul>
+          { for ((user, institutes) <- SabNgStore.users) yield
+            <li>{user}
+              <ul>
+              { for ((institute, roles) <- institutes) yield
+                <li>{institute}: {roles.mkString(", ")}</li>
+              }
               </ul>
             </li>
           }
