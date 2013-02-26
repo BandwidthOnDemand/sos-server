@@ -45,6 +45,7 @@ class OpenSocialServerController extends ScalatraServlet with JacksonJsonSupport
 
   get("/") {
     contentType = "text/html"
+
     Xhtml.toXhtml(
       <html>
         <head>

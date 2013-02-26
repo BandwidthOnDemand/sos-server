@@ -14,7 +14,7 @@
     <parent>
         <groupId>nl.surfnet.bod</groupId>
         <artifactId>bod-parent-pom</artifactId>
-        <version>0.1.1</version>
+        <version>0.1.2-SNAPSHOT</version>
     </parent>
 
     <scm>
@@ -55,6 +55,10 @@
             <artifactId>scalatra-scalatest_${scala.shortversion}</artifactId>
             <version>${scalatra.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
