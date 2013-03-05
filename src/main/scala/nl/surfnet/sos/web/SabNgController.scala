@@ -29,7 +29,7 @@ class SabNgController extends ScalatraServlet with ApiFormats {
             <samlp:Status>
               <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
             </samlp:Status>
-            { samlAssertions(institutes) }
+            { samlAssertion(institutes) }
           </samlp:Response>
         </SOAP-ENV:Body>
       </SOAP-ENV:Envelope>
@@ -39,28 +39,30 @@ class SabNgController extends ScalatraServlet with ApiFormats {
     response.getOrElse(<failed></failed>)
   }
 
-  private def samlAssertions(institutes: Map[String, Set[String]]) = {
+  private def samlAssertion(institutes: Map[String, Set[String]]) = {
 
     val notBefore = DateTime.now.minusHours(2).toString(dateTimeFormatter)
     val notOnOrAfter = DateTime.now.plusHours(2).toString(dateTimeFormatter)
     val issueInstant = DateTime.now.toString(dateTimeFormatter)
 
-    for ((institute, roles) <- institutes) yield
-      <saml:Assertion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-        ID="_746aae3dc805719002b34ba54d7bd2b1a581479edc" Version="2.0" IssueInstant={issueInstant}>
-        <saml:Issuer/>
-        <saml:Conditions NotBefore={notBefore} NotOnOrAfter={notOnOrAfter}/>
-        <saml:AttributeStatement>
-          <saml:Attribute Name="urn:oid:1.3.6.1.4.1.5923.1.1.1.7" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
-          {
-            for (role <- roles) yield
-              <saml:AttributeValue xsi:type="xs:string">{role}</saml:AttributeValue>
-          }
+    <saml:Assertion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+      ID="_746aae3dc805719002b34ba54d7bd2b1a581479edc" Version="2.0" IssueInstant={issueInstant}>
+      <saml:Issuer/>
+      <saml:Conditions NotBefore={notBefore} NotOnOrAfter={notOnOrAfter}/>
+      {
+        for ((institute, roles) <- institutes) yield
+          <saml:AttributeStatement>
+            <saml:Attribute Name="urn:oid:1.3.6.1.4.1.5923.1.1.1.7" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+            {
+              for (role <- roles) yield
+                <saml:AttributeValue xsi:type="xs:string">{role}</saml:AttributeValue>
+            }
+            </saml:Attribute>
+            <saml:Attribute Name="urn:oid:1.3.6.1.4.1.1076.20.100.10.50.1" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+            <saml:AttributeValue xsi:type="xs:string">{institute}</saml:AttributeValue>
           </saml:Attribute>
-          <saml:Attribute Name="urn:oid:1.3.6.1.4.1.1076.20.100.10.50.1" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
-          <saml:AttributeValue xsi:type="xs:string">{institute}</saml:AttributeValue>
-        </saml:Attribute>
-      </saml:AttributeStatement>
+        </saml:AttributeStatement>
+      }
     </saml:Assertion>
   }
 
