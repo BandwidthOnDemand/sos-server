@@ -25,9 +25,9 @@
   </scm>
 
     <properties>
-        <scalatra.version>2.2.2</scalatra.version>
-        <scala.version>2.10.3</scala.version>
-        <scala.shortversion>2.10</scala.shortversion>
+        <scalatra.version>2.3.0</scalatra.version>
+        <scala.version>2.11.1</scala.version>
+        <scala.shortversion>2.11</scala.shortversion>
     </properties>
 
     <dependencies>
@@ -49,7 +49,7 @@
         <dependency>
             <groupId>org.json4s</groupId>
             <artifactId>json4s-jackson_${scala.shortversion}</artifactId>
-            <version>3.1.0</version>
+            <version>3.2.10</version>
         </dependency>
         <dependency>
             <groupId>org.scalatra</groupId>
@@ -68,14 +68,14 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.scala-tools</groupId>
-            <artifactId>scala-stm_2.10.0</artifactId>
-            <version>0.6</version>
+            <groupId>org.scala-stm</groupId>
+            <artifactId>scala-stm_${scala.shortversion}</artifactId>
+            <version>0.7</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
+            <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -95,7 +95,7 @@
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.2.0</version>
                 <configuration>
                     <scalaVersion>${scala.version}</scalaVersion>
                 </configuration>

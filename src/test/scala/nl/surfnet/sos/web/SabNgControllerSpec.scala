@@ -1,12 +1,12 @@
 package nl.surfnet.sos.web
 
 import org.junit.runner.RunWith
-import org.scalatra.test.scalatest.ScalatraSuite
-import org.scalatest.FunSuite
+import org.scalatra.test.scalatest.ScalatraFunSuite
+
 import scala.xml.XML
 
 @RunWith(classOf[org.scalatest.junit.JUnitRunner])
-class SabNgControllerSpec extends ScalatraSuite with FunSuite {
+class SabNgControllerSpec extends ScalatraFunSuite {
 
   addServlet(classOf[SabNgController], "/*")
 
@@ -22,11 +22,11 @@ class SabNgControllerSpec extends ScalatraSuite with FunSuite {
 
       val xmlResponse = XML.loadString(body)
 
-      xmlResponse \\ "AttributeStatement" must have length (2)
+      xmlResponse \\ "AttributeStatement" should have length (2)
 
-      (xmlResponse \\ "Response" \ "@InResponseTo").text must equal ("1234567890")
+      (xmlResponse \\ "Response" \ "@InResponseTo").text should equal ("1234567890")
 
-      status must equal (200)
+      status should equal (200)
     }
   }
 
