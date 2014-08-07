@@ -18,11 +18,11 @@ class SabNgControllerSpec extends ScalatraFunSuite {
         <AttributeQuery ID="1234567890" />
       </dummyrequest>
 
-    post("/server", dummyRequest.toString) {
+    post("/server", dummyRequest.toString()) {
 
       val xmlResponse = XML.loadString(body)
 
-      xmlResponse \\ "AttributeStatement" should have length (2)
+      xmlResponse \\ "AttributeStatement" should have length 2
 
       (xmlResponse \\ "Response" \ "@InResponseTo").text should equal ("1234567890")
 

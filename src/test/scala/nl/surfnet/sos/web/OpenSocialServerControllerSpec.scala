@@ -31,7 +31,7 @@ class OpenSocialServerControllerSpec extends ScalatraFunSuite {
 
   test("Add a group to a person") {
     get(s"/groups/$johnSmithUrn") {
-      body should not include ("test-group")
+      body should not include "test-group"
     }
     post(
       s"/persons/$johnSmithUrn/groups",
@@ -59,7 +59,7 @@ class OpenSocialServerControllerSpec extends ScalatraFunSuite {
       status should equal (200)
     }
     get(s"/groups/$johnSmithUrn") {
-      body should not include ("noc-engineer")
+      body should not include "noc-engineer"
     }
   }
 
