@@ -44,8 +44,8 @@ class SosController extends ScalatraServlet {
           { for ((user, institutes) <- SabNgStore.users) yield
             <li>{user}
               <ul>
-              { for ((institute, roles) <- institutes) yield
-                <li>{institute}: {roles.mkString(", ")}</li>
+              { for ((guid, (shortName, roles)) <- institutes) yield
+                <li><tt>{guid.toString}</tt>: {shortName} -> {roles.mkString(", ")}</li>
               }
               </ul>
             </li>

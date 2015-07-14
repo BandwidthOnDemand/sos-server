@@ -1,5 +1,6 @@
 package nl.surfnet.sos.web
 
+import java.util.UUID
 import org.scalatra._
 import org.scalatra.ApiFormats._
 import scala.xml.XML
@@ -39,7 +40,7 @@ class SabNgController extends ScalatraServlet with ApiFormats {
     response.getOrElse(<failed></failed>)
   }
 
-  private def samlAssertion(institutes: Map[String, Set[String]]) = {
+  private def samlAssertion(institutes: Map[UUID, (String, Set[String])]) = {
 
     val notBefore = DateTime.now.minusHours(2).toString(dateTimeFormatter)
     val notOnOrAfter = DateTime.now.plusHours(2).toString(dateTimeFormatter)
@@ -50,7 +51,7 @@ class SabNgController extends ScalatraServlet with ApiFormats {
       <saml:Issuer/>
       <saml:Conditions NotBefore={notBefore} NotOnOrAfter={notOnOrAfter}/>
       {
-        for ((institute, roles) <- institutes) yield
+        for ((guid, (shortName, roles)) <- institutes) yield {
           <saml:AttributeStatement>
             <saml:Attribute Name="urn:oid:1.3.6.1.4.1.5923.1.1.1.7" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
             {
@@ -59,9 +60,13 @@ class SabNgController extends ScalatraServlet with ApiFormats {
             }
             </saml:Attribute>
             <saml:Attribute Name="urn:oid:1.3.6.1.4.1.1076.20.100.10.50.1" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
-            <saml:AttributeValue xsi:type="xs:string">{institute}</saml:AttributeValue>
-          </saml:Attribute>
-        </saml:AttributeStatement>
+              <saml:AttributeValue xsi:type="xs:string">{shortName}</saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="urn:oid:1.3.6.1.4.1.1076.20.100.10.50.2" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+              <saml:AttributeValue xsi:type="xs:string">{guid.toString}</saml:AttributeValue>
+            </saml:Attribute>
+          </saml:AttributeStatement>
+        }
       }
     </saml:Assertion>
   }
