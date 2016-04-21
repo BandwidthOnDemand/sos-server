@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.surfnet</groupId>
     <artifactId>sos-server</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <description>sos-server</description>
     <version>0.2.3-SNAPSHOT</version>
     <name>sos-server</name>
@@ -22,10 +22,10 @@
         <developerConnection>scm:git:git@github.com:BandwidthOnDemand/sos-server.git</developerConnection>
         <url>https://github.com/BandwidthOnDemand/sos-server</url>
       <tag>HEAD</tag>
-  </scm>
+    </scm>
 
     <properties>
-        <scalatra.version>2.3.1</scalatra.version>
+        <scalatra.version>2.4.0</scalatra.version>
         <scala.version>2.11.7</scala.version>
         <scala.shortversion>2.11</scala.shortversion>
     </properties>
@@ -49,13 +49,18 @@
         <dependency>
             <groupId>org.json4s</groupId>
             <artifactId>json4s-jackson_${scala.shortversion}</artifactId>
-            <version>3.2.11</version>
+            <version>3.3.0</version>
         </dependency>
         <dependency>
             <groupId>org.scalatra</groupId>
             <artifactId>scalatra-scalatest_${scala.shortversion}</artifactId>
             <version>${scalatra.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-webapp</artifactId>
+          <version>9.2.10.v20150310</version>
         </dependency>
         <dependency>
             <groupId>joda-time</groupId>
@@ -76,12 +81,32 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+              <artifactId>maven-resources-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>copy-webapp-resources</id>
+                  <phase>validate</phase>
+                  <goals>
+                    <goal>copy-resources</goal>
+                  </goals>
+                  <configuration>
+                    <outputDirectory>${project.build.directory}/classes/webapp</outputDirectory>
+                    <resources>
+                      <resource>
+                        <directory>src/main/webapp</directory>
+                        <filtering>false</filtering>
+                      </resource>
+                    </resources>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -90,7 +115,6 @@
                         <include>**/*Spec.class</include>
                     </includes>
                 </configuration>
-
             </plugin>
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
@@ -119,6 +143,30 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-assembly-plugin</artifactId>
+              <version>2.6</version>
+              <configuration>
+                <descriptorRefs>
+                  <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+                <archive>
+                  <manifest>
+                    <mainClass>nl.surfnet.sos.JettyLauncher</mainClass>
+                  </manifest>
+                </archive>
+              </configuration>
+              <executions>
+                <execution>
+                  <id>make-assembly</id>
+                  <phase>package</phase>
+                  <goals>
+                    <goal>single</goal>
+                  </goals>
+                </execution>
+              </executions>
             </plugin>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
